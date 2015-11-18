@@ -59,5 +59,5 @@ Retrieve the relations.
 <?php
 
 $user = \App\User::find(1);
-$user->messages();
+$user->messages;
 ```
