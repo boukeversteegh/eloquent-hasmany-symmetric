@@ -1,5 +1,5 @@
 {
-    "name": "boukeversteegh/eloquent-hasmany-symmetric",
+    "name": "boukeversteegh/eloquent-relations",
     "description": "Eloquent Relationship that defines symmetric relations",
     "license": "MIT",
     "authors": [
