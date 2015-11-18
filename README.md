@@ -13,7 +13,7 @@ composer require boukeversteegh/eloquent-relations dev-master
 
 Use the provided trait to support symmetric relations, and define a relationship.
 
-```
+```php
 <?php
 
 namespace App;
@@ -49,7 +49,7 @@ class Message extends Model
 
 Retrieve the relations.
 
-```
+```php
 <?php
 
 $user = \App\User::find(1);
