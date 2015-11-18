@@ -1,13 +1,19 @@
-# eloquent-relations
+# EloquentRelations
 
-## HasManySymmetric
-Eloquent Relationship that defines symmetric relations
+Adds a new type of relationship to Eloquent that matches either of two foreign keys.
 
-### Installation
 
 ```
 composer require boukeversteegh/eloquent-relations dev-master
 ```
+
+## HasManySymmetric
+Eloquent Relationship that defines symmetric relations.
+
+Some use cases:
+- Message has a sender and a receiver, but the message belongs to both users.
+- Games are played by a two teams, but belong to both teams equally.
+- Friendships involve two persons.
 
 ### Usage
 
