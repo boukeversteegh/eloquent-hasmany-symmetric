@@ -1,0 +1,17 @@
+{
+    "name": "boukeversteegh/eloquent-hasmany-symmetric",
+    "description": "Eloquent Relationship that defines symmetric relations",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bouke Versteegh",
+            "email": "info@boukeversteegh.nl"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Boukeversteegh\\": "boukeversteegh/"
+        }
+    }
+}
