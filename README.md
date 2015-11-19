@@ -39,7 +39,7 @@ class User extends \Illuminate\Database\Eloquent\Model
 }
 ```
 
-```
+```php
 # Lazy load the relationship
 $user = User::find(1);
 $user->friendships;
