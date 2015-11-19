@@ -8,12 +8,19 @@ composer require boukeversteegh/eloquent-relations dev-master
 ```
 
 ## HasManySymmetric
-Eloquent Relationship that defines symmetric relations.
+Eloquent Relationship that defines symmetric relations. Implemented as HasMany relation with two candidate foreign keys.
 
-Some use cases:
-- Message has a sender and a receiver, but the message belongs to both users.
-- Games are played by a two teams, but belong to both teams equally.
-- Friendships involve two persons.
+The relation is equivalent to the following join:
+
+```mysql
+SELECT * FROM parent JOIN related ON (parent.id = related.foreign_key_1 OR parent.id = related.foreign_key_2)
+```
+
+### Use cases
+
+- Friendships on a social network involve two users (inviting_user_id, accepting_user_id). You want to retrieve a user's friends regardless of the direction of the relationship.
+- Message has a sender and a receiver, and you want to get user->messages through one relationship (match sender AND receiver)
+- Games are played by two teams, but belong to both teams equally (home_team_id OR guest_team_id).
 
 ### Usage
 
@@ -22,42 +29,21 @@ Use the provided trait to support symmetric relations, and define a relationship
 ```php
 <?php
 
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
+class User extends \Illuminate\Database\Eloquent\Model
 {
     use \EloquentRelations\HasManySymmetricTrait;
 
-    /**
-     * A message belongs to a user when either the sending_user_id or receiving_user_id matches user.id
-     */
-    public function messages()
+    public function friendships()
     {
-        return $this->hasManySymmetric(Message::class, ['sending_user_id', 'receiving_user_id']);
+        return $this->hasManySymmetric(Friendship::class, ['first_user_id', 'second_user_id']);
     }
 }
 
-class Message extends Model
-{
-    public function sendingUser()
-    {
-        return $this->belongsTo(User::class, 'sending_user_id', 'id');
-    }
+# Lazy load the relationship
+$user = User::find(1);
+$user->friendships;
 
-    public function receivingUser()
-    {
-        return $this->belongsTo(User::class, 'receiving_user_id', 'id');
-    }
-}
-```
-
-Retrieve the relations.
-
-```php
-<?php
-
-$user = \App\User::find(1);
-$user->messages;
+# Eager loading
+$user = User::with('friendships')->find(1);
+$user->friendships;
 ```
