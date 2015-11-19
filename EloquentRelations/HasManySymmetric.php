@@ -102,7 +102,8 @@ class HasManySymmetric extends Relation
 
         // Set the relation for all the models
         foreach($models as $model) {
-            $model->setRelation($relation, $this->related->newCollection($dictionary[$model->{$this->localKey}]));
+            $relatedRecords = array_get($dictionary, $model->{$this->localKey}, []);
+            $model->setRelation($relation, $this->related->newCollection($relatedRecords));
         }
 
         return $models;
